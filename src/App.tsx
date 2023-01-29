@@ -1,5 +1,4 @@
-import { Box, TextInput, Button, Text } from "@mantine/core";
-import { useFocusWithin } from "@mantine/hooks";
+import { useHover } from "@mantine/hooks";
 
 export default function App() {
   return (
@@ -8,21 +7,10 @@ export default function App() {
 }
 
 function Demo() {
-  const { ref, focused } = useFocusWithin();
+  const { hovered, ref } = useHover();
   return (
     <div ref={ref}>
-      <Box
-        sx={(theme) => ({
-          backgroundColor: focused
-            ? theme.fn.variant({ variant: 'light' }).background
-            : 'transparent',
-          padding: theme.spacing.xl,
-        })}
-      >
-        <Text size="sm">One of elements has focus: {focused.toString()}</Text>
-        <TextInput label="Focus this input" placeholder="Styles will be added to parent" />
-        <Button mt="md">Button</Button>
-      </Box>
+      {hovered ? 'I am hovered' : 'Put mouse over me please'}
     </div>
   );
 }
