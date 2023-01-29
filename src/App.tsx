@@ -1,5 +1,5 @@
-import { Button, TextInput, NumberInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Button, TextInput, NumberInput, Box, Group } from "@mantine/core";
+import { hasLength, isEmail, isInRange, isNotEmpty, matches, useForm } from "@mantine/form";
 
 export default function App() {
   return (
@@ -9,31 +9,58 @@ export default function App() {
 
 function Demo() {
   const form = useForm({
-    initialValues: { name: '', email: '', age: 0 },
+    initialValues: {
+      name: '',
+      job: '',
+      email: '',
+      favoriteColor: '',
+      age: 18,
+    },
 
-    // functions will be used to validate values at corresponding key
     validate: {
-      name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      age: (value) => (value < 18 ? 'You must be at least 18 to register' : null),
+      name: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
+      job: isNotEmpty('Enter your current job'),
+      email: isEmail('Invalid email'),
+      favoriteColor: matches(/^#([0-9a-f]{3}){1,2}$/, 'Enter a valid hex color'),
+      age: isInRange({ min: 18, max: 99 }, 'You must be 18-99 years old to register'),
     },
   });
 
   return (
-    <form onSubmit={form.onSubmit(console.log)}>
-      <TextInput label="Name" placeholder="Name" {...form.getInputProps('name')} />
-      <TextInput mt="sm" label="Email" placeholder="Email" {...form.getInputProps('email')} />
+    <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit(() => { })}>
+      <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
+      <TextInput
+        label="Your job"
+        placeholder="Your job"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps('job')}
+      />
+      <TextInput
+        label="Your email"
+        placeholder="Your email"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps('email')}
+      />
+      <TextInput
+        label="Your favorite color"
+        placeholder="Your favorite color"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps('favoriteColor')}
+      />
       <NumberInput
-        mt="sm"
-        label="Age"
-        placeholder="Age"
-        min={0}
-        max={99}
+        label="Your age"
+        placeholder="Your age"
+        withAsterisk
+        mt="md"
         {...form.getInputProps('age')}
       />
-      <Button type="submit" mt="sm">
-        Submit
-      </Button>
-    </form>
+
+      <Group position="right" mt="md">
+        <Button type="submit">Submit</Button>
+      </Group>
+    </Box>
   );
 }
