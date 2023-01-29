@@ -1,5 +1,5 @@
-import { Button, Group, Text } from '@mantine/core';
-import { useCounter } from '@mantine/hooks';
+import { Text, TextInput } from '@mantine/core';
+import { useDebouncedState } from '@mantine/hooks';
 
 export default function App() {
   return (
@@ -8,17 +8,18 @@ export default function App() {
 }
 
 function Demo() {
-  const [count, handlers] = useCounter(0, { min: 0, max: 10 });
+  const [value, setValue] = useDebouncedState('', 200);
 
   return (
     <>
-      <Text>Count: {count}</Text>
-      <Group position="center">
-        <Button onClick={handlers.increment}>Increment</Button>
-        <Button onClick={handlers.decrement}>Decrement</Button>
-        <Button onClick={handlers.reset}>Reset</Button>
-        <Button onClick={() => handlers.set(5)}>Set 5</Button>
-      </Group>
+      <TextInput
+        label="Enter value to see debounce effect"
+        defaultValue={value}
+        style={{ flex: 1 }}
+        onChange={(event) => setValue(event.currentTarget.value)}
+      />
+
+      <Text>Debounced value: {value}</Text>
     </>
   );
 }
