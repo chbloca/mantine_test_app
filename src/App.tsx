@@ -1,4 +1,4 @@
-import { Button, Stack, Text } from '@mantine/core';
+import { Button, Code, MantineProvider, Title } from '@mantine/core';
 
 export default function App() {
   return (
@@ -8,9 +8,16 @@ export default function App() {
 
 function Demo() {
   return (
-    <Stack align="flex-start">
-      <Text color="blue.3">Text with theme.colors.blue[3] color</Text>
-      <Button color="pink.4">Button with theme.colors.pink[4] color</Button>
-    </Stack>
+    <MantineProvider
+      theme={{
+        fontFamily: 'Verdana, sans-serif',
+        fontFamilyMonospace: 'Monaco, Courier, monospace',
+        headings: { fontFamily: 'Greycliff CF, sans-serif' },
+      }}
+    >
+      <Title order={3}>Greycliff CF or sans-serif title</Title>
+      <Button>Verdana button</Button>
+      <Code>Monaco, Courier Code</Code>
+    </MantineProvider>
   );
 }
