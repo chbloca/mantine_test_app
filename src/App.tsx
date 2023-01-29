@@ -1,4 +1,4 @@
-import { Badge, Button, ButtonStylesParams, MantineProvider } from '@mantine/core';
+import { Badge, Button, MantineProvider } from '@mantine/core';
 
 export default function App() {
   return (
@@ -10,33 +10,14 @@ function Demo() {
   return (
     <MantineProvider
       theme={{
-        components: {
-          Button: {
-            // Subscribe to theme and component params
-            styles: (theme, params: ButtonStylesParams) => ({
-              root: {
-                height: 42,
-                padding: '0 30px',
-                backgroundColor:
-                  params.variant === 'filled'
-                    ? theme.colors[params.color || theme.primaryColor][9]
-                    : undefined,
-              },
-            }),
-          },
-
-          Badge: {
-            // Use raw styles object if you do not need theme dependency
-            styles: {
-              root: { borderWidth: 2 },
-            },
-          },
+        colors: {
+          'ocean-blue': ['#7AD1DD', '#5FCCDB', '#44CADC', '#2AC9DE', '#1AC2D9', '#11B7CD', '#09ADC3', '#0E99AC', '#128797', '#147885'],
+          'bright-pink': ['#F0BBDD', '#ED9BCF', '#EC7CC3', '#ED5DB8', '#F13EAF', '#F71FA7', '#FF00A1', '#E00890', '#C50E82', '#AD1374'],
         },
       }}
     >
-      <Button variant="outline">Outline button</Button>
-      <Button variant="filled" color="cyan">Filled button</Button>
-      <Badge variant="dot">Dot badge</Badge>
+      <Button color="ocean-blue">Ocean blue button</Button>
+      <Badge color="bright-pink" variant="filled">Bright pink badge</Badge>
     </MantineProvider>
   );
 }
