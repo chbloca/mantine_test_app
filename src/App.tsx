@@ -1,4 +1,4 @@
-import { Button, Group, MantineProvider, Tooltip } from '@mantine/core';
+import { Checkbox, Group, MantineProvider, Radio } from '@mantine/core';
 
 export default function App() {
   return (
@@ -10,15 +10,18 @@ export default function App() {
 
 function Demo() {
   return (
-    <Group position="center">
-      <Tooltip label="User settings are respected" transition="pop" transitionDuration={300}>
-        <Button>Respect user settings</Button>
-      </Tooltip>
-      <MantineProvider inherit theme={{ respectReducedMotion: false }}>
-        <Tooltip label="User settings are disregarded" transition="pop" transitionDuration={300}>
-          <Button>Disregard user settings</Button>
-        </Tooltip>
+    <>
+      <Group>
+        <Checkbox label="Default checkbox" />
+        <Radio label="Default radio" value="pointer" />
+      </Group>
+
+      <MantineProvider inherit theme={{ cursorType: 'pointer' }}>
+        <Group mt="xl">
+          <Checkbox label="Checkbox with pointer" />
+          <Radio label="Radio with pointer" value="pointer" />
+        </Group>
       </MantineProvider>
-    </Group>
+    </>
   );
 }
