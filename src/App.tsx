@@ -1,5 +1,5 @@
-import { useMantineTheme, Text, Code, Group } from "@mantine/core";
-import { useMouse } from "@mantine/hooks";
+import { Group, Box, Button, Checkbox, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 export default function App() {
   return (
@@ -8,25 +8,37 @@ export default function App() {
 }
 
 function Demo() {
-  const theme = useMantineTheme();
-  const { ref, x, y } = useMouse();
+  const form = useForm({
+    initialValues: {
+      email: '',
+      termsOfService: false,
+    },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+    },
+  });
 
   return (
-    <>
-      <Group position="center">
-        <div
-          ref={ref}
-          style={{
-            width: 300,
-            height: 180,
-            backgroundColor:
-              theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-          }}
+    <Box sx={{ maxWidth: 300 }} mx="auto">
+      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <TextInput
+          withAsterisk
+          label="Email"
+          placeholder="your@email.com"
+          {...form.getInputProps('email')}
         />
-      </Group>
-      <Text align="center">
-        Mouse coordinates <Code>{`{ x: ${x}, y: ${y} }`}</Code>
-      </Text>
-    </>
+
+        <Checkbox
+          mt="md"
+          label="I agree to sell my privacy"
+          {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+        />
+
+        <Group position="right" mt="md">
+          <Button type="submit">Submit</Button>
+        </Group>
+      </form>
+    </Box>
   );
 }
