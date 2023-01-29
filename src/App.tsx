@@ -1,4 +1,5 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { Button, Group, Text } from '@mantine/core';
+import { useCounter } from '@mantine/hooks';
 
 export default function App() {
   return (
@@ -7,18 +8,17 @@ export default function App() {
 }
 
 function Demo() {
+  const [count, handlers] = useCounter(0, { min: 0, max: 10 });
+
   return (
-    <MantineProvider
-      theme={{
-        components: {
-          Button: {
-            defaultProps: { color: 'red' },
-          },
-        },
-      }}
-    >
-      <Button>Red color, defined with defaultProps</Button>
-      <Button color="cyan">Cyan color, overridden by prop</Button>
-    </MantineProvider>
+    <>
+      <Text>Count: {count}</Text>
+      <Group position="center">
+        <Button onClick={handlers.increment}>Increment</Button>
+        <Button onClick={handlers.decrement}>Decrement</Button>
+        <Button onClick={handlers.reset}>Reset</Button>
+        <Button onClick={() => handlers.set(5)}>Set 5</Button>
+      </Group>
+    </>
   );
 }
