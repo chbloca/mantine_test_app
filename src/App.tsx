@@ -1,6 +1,5 @@
-import { Group, Button } from "@mantine/core";
-import { useEventListener } from "@mantine/hooks";
-import { useState, useCallback } from "react";
+import { Group, Button, Modal } from "@mantine/core";
+import { useState } from "react";
 
 export default function App() {
   return (
@@ -9,13 +8,21 @@ export default function App() {
 }
 
 function Demo() {
-  const [count, setCount] = useState(0);
-  const increment = useCallback(() => setCount((c) => c + 1), []);
-  const ref = useEventListener('click', increment);
+  const [opened, setOpened] = useState(false);
 
   return (
-    <Group position="center">
-      <Button ref={ref}>Button clicks: {count}</Button>
-    </Group>
+    <>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Introduce yourself!"
+      >
+        {/* Modal content */}
+      </Modal>
+
+      <Group position="center">
+        <Button onClick={() => setOpened(true)}>Open Modal</Button>
+      </Group>
+    </>
   );
 }
