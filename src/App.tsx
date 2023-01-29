@@ -1,5 +1,6 @@
-import { Text, TextInput } from '@mantine/core';
-import { useDebouncedState } from '@mantine/hooks';
+import { Button, Paper } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
+import { useState } from "react";
 
 export default function App() {
   return (
@@ -8,18 +9,18 @@ export default function App() {
 }
 
 function Demo() {
-  const [value, setValue] = useDebouncedState('', 200);
+  const [opened, setOpened] = useState(false);
+  const ref = useClickOutside(() => setOpened(false));
 
   return (
     <>
-      <TextInput
-        label="Enter value to see debounce effect"
-        defaultValue={value}
-        style={{ flex: 1 }}
-        onChange={(event) => setValue(event.currentTarget.value)}
-      />
+      <Button onClick={() => setOpened(true)}>Open dropdown</Button>
 
-      <Text>Debounced value: {value}</Text>
+      {opened && (
+        <Paper ref={ref} shadow="sm">
+          <span>Click outside to close</span>
+        </Paper>
+      )}
     </>
   );
 }
