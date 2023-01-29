@@ -1,5 +1,5 @@
-import { Group, Button, Modal } from "@mantine/core";
-import { useState } from "react";
+import { Box, TextInput, Button, Text } from "@mantine/core";
+import { useFocusWithin } from "@mantine/hooks";
 
 export default function App() {
   return (
@@ -8,21 +8,21 @@ export default function App() {
 }
 
 function Demo() {
-  const [opened, setOpened] = useState(false);
-
+  const { ref, focused } = useFocusWithin();
   return (
-    <>
-      <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Introduce yourself!"
+    <div ref={ref}>
+      <Box
+        sx={(theme) => ({
+          backgroundColor: focused
+            ? theme.fn.variant({ variant: 'light' }).background
+            : 'transparent',
+          padding: theme.spacing.xl,
+        })}
       >
-        {/* Modal content */}
-      </Modal>
-
-      <Group position="center">
-        <Button onClick={() => setOpened(true)}>Open Modal</Button>
-      </Group>
-    </>
+        <Text size="sm">One of elements has focus: {focused.toString()}</Text>
+        <TextInput label="Focus this input" placeholder="Styles will be added to parent" />
+        <Button mt="md">Button</Button>
+      </Box>
+    </div>
   );
 }
