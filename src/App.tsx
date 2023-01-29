@@ -1,13 +1,21 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { Button, MantineProvider, Text } from '@mantine/core';
 
 export default function App() {
   return (
-    <MantineProvider theme={{ fontFamily: 'Open Sans' }} withGlobalStyles withNormalizeCSS>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
       <Demo />
     </MantineProvider>
   );
 }
 
 function Demo() {
-  return <Button>My app button</Button>;
+  return (
+    <MantineProvider theme={{ fontFamily: 'Georgia, serif' }}>
+      <Text align="center" mb="xs">Georgia or serif text</Text>
+
+      <MantineProvider theme={{ fontFamily: 'Greycliff CF, sans-serif' }}>
+        <Button>Greycliff CF button</Button>
+      </MantineProvider>
+    </MantineProvider>
+  );
 }
