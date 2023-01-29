@@ -1,4 +1,4 @@
-import { Button, Group, MantineProvider, Switch } from '@mantine/core';
+import { Button, MantineProvider } from '@mantine/core';
 
 export default function App() {
   return (
@@ -8,37 +8,17 @@ export default function App() {
 
 function Demo() {
   return (
-    <>
-      <MantineProvider
-        theme={{
-          components: {
-            Button: {
-              defaultProps: {
-                size: 'xs',
-                color: 'cyan',
-              },
-            },
-
-            Switch: {
-              defaultProps: {
-                size: 'xs',
-                onLabel: 'ON',
-                offLabel: 'OFF',
-              },
-            },
+    <MantineProvider
+      theme={{
+        components: {
+          Button: {
+            defaultProps: { color: 'red' },
           },
-        }}
-      >
-        <Group position="center">
-          <Button>Within provider</Button>
-          <Switch label="Within provider" />
-        </Group>
-      </MantineProvider>
-
-      <Group position="center" mt="md">
-        <Button>Outside of provider</Button>
-        <Switch label="Outside of provider" />
-      </Group>
-    </>
+        },
+      }}
+    >
+      <Button>Red color, defined with defaultProps</Button>
+      <Button color="cyan">Cyan color, overridden by prop</Button>
+    </MantineProvider>
   );
 }
