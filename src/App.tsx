@@ -1,6 +1,4 @@
-import { Button, Paper } from "@mantine/core";
-import { useClickOutside } from "@mantine/hooks";
-import { useState } from "react";
+import { useElementSize } from "@mantine/hooks";
 
 export default function App() {
   return (
@@ -8,19 +6,14 @@ export default function App() {
   );
 }
 
+
 function Demo() {
-  const [opened, setOpened] = useState(false);
-  const ref = useClickOutside(() => setOpened(false));
+  const { ref, width, height } = useElementSize();
 
   return (
     <>
-      <Button onClick={() => setOpened(true)}>Open dropdown</Button>
-
-      {opened && (
-        <Paper ref={ref} shadow="sm">
-          <span>Click outside to close</span>
-        </Paper>
-      )}
+      <textarea ref={ref} style={{ width: 400, height: 120 }} />
+      <div>Width: {width}px, height: {height}px</div>
     </>
   );
 }
