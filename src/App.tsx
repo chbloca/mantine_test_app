@@ -1,25 +1,42 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { Badge, Button, ButtonStylesParams, MantineProvider } from '@mantine/core';
 
 export default function App() {
   return (
-    // Parent MantineProvider
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
-      <Button>Affected only by parent provider</Button>
-      {/*
-        Child MantineProvider, inherits theme from parent MantineProvider.
-        Other properties specified on child provider will override parent props.
-        For example, in this case theme override will be:
-        { colorScheme: 'dark', primaryColor: 'red' }
-      */}
-      <MantineProvider theme={{ primaryColor: 'red' }} inherit>
-        <Button>Affected only by child provider</Button>
-      </MantineProvider>
-    </MantineProvider>
+    <Demo />
   );
 }
 
-// function Demo() {
-//   return (
-    
-//   );
-// }
+function Demo() {
+  return (
+    <MantineProvider
+      theme={{
+        components: {
+          Button: {
+            // Subscribe to theme and component params
+            styles: (theme, params: ButtonStylesParams) => ({
+              root: {
+                height: 42,
+                padding: '0 30px',
+                backgroundColor:
+                  params.variant === 'filled'
+                    ? theme.colors[params.color || theme.primaryColor][9]
+                    : undefined,
+              },
+            }),
+          },
+
+          Badge: {
+            // Use raw styles object if you do not need theme dependency
+            styles: {
+              root: { borderWidth: 2 },
+            },
+          },
+        },
+      }}
+    >
+      <Button variant="outline">Outline button</Button>
+      <Button variant="filled" color="cyan">Filled button</Button>
+      <Badge variant="dot">Dot badge</Badge>
+    </MantineProvider>
+  );
+}
