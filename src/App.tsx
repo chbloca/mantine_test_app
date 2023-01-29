@@ -1,4 +1,4 @@
-import { Button, Group, MantineProvider } from '@mantine/core';
+import { Button, Stack, Text } from '@mantine/core';
 
 export default function App() {
   return (
@@ -6,7 +6,11 @@ export default function App() {
   );
 }
 
-// the following button will have theme.colors.orange[theme.primaryShade] background
 function Demo() {
-  return <Button color="orange">Orange button</Button>;
+  return (
+    <Stack align="flex-start">
+      <Text color="blue.3">Text with theme.colors.blue[3] color</Text>
+      <Button color="pink.4">Button with theme.colors.pink[4] color</Button>
+    </Stack>
+  );
 }
