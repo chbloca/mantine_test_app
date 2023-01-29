@@ -1,4 +1,4 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { Button, Group, MantineProvider } from '@mantine/core';
 
 export default function App() {
   return (
@@ -10,8 +10,20 @@ export default function App() {
 
 function Demo() {
   return (
-    <MantineProvider theme={{ activeStyles: { transform: 'scale(0.95)' } }}>
-      <Button>Press me</Button>
-    </MantineProvider>
+    <Group position="center">
+      <Button variant="gradient">Default gradient button</Button>
+      <MantineProvider
+        inherit
+        theme={{
+          defaultGradient: {
+            from: 'orange',
+            to: 'red',
+            deg: 45,
+          },
+        }}
+      >
+        <Button variant="gradient">Gradient from provider</Button>
+      </MantineProvider>
+    </Group>
   );
 }
