@@ -6,14 +6,7 @@ export default function App() {
   );
 }
 
+// the following button will have theme.colors.orange[theme.primaryShade] background
 function Demo() {
-  return (
-    <MantineProvider theme={{ primaryShade: 6 }}>
-      <Group position="center">
-        <Button variant="filled">Filled button</Button>
-        <Button variant="light">Light button</Button>
-        <Button variant="outline">Outline button</Button>
-      </Group>
-    </MantineProvider>
-  );
+  return <Button color="orange">Orange button</Button>;
 }
