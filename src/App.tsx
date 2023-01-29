@@ -1,4 +1,4 @@
-import { Button, MantineProvider } from '@mantine/core';
+import { Button, Group, MantineProvider } from '@mantine/core';
 
 export default function App() {
   return (
@@ -6,18 +6,14 @@ export default function App() {
   );
 }
 
-
 function Demo() {
   return (
-    <MantineProvider theme={{
-      colors: {
-        brand: ['#F0BBDD', '#ED9BCF', '#EC7CC3', '#ED5DB8', '#F13EAF', '#F71FA7', '#FF00A1', '#E00890', '#C50E82', '#AD1374'],
-      },
-      primaryColor: 'brand',
-    }}
-    >
-      <Button>Primary button</Button>
-      <Button color="blue">Blue button</Button>
+    <MantineProvider theme={{ primaryShade: 6 }}>
+      <Group position="center">
+        <Button variant="filled">Filled button</Button>
+        <Button variant="light">Light button</Button>
+        <Button variant="outline">Outline button</Button>
+      </Group>
     </MantineProvider>
   );
 }
