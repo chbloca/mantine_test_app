@@ -1,4 +1,5 @@
-import { useHover } from "@mantine/hooks";
+import { useMantineTheme, Text, Code, Group } from "@mantine/core";
+import { useMouse } from "@mantine/hooks";
 
 export default function App() {
   return (
@@ -7,10 +8,25 @@ export default function App() {
 }
 
 function Demo() {
-  const { hovered, ref } = useHover();
+  const theme = useMantineTheme();
+  const { ref, x, y } = useMouse();
+
   return (
-    <div ref={ref}>
-      {hovered ? 'I am hovered' : 'Put mouse over me please'}
-    </div>
+    <>
+      <Group position="center">
+        <div
+          ref={ref}
+          style={{
+            width: 300,
+            height: 180,
+            backgroundColor:
+              theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+          }}
+        />
+      </Group>
+      <Text align="center">
+        Mouse coordinates <Code>{`{ x: ${x}, y: ${y} }`}</Code>
+      </Text>
+    </>
   );
 }
