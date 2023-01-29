@@ -8,12 +8,10 @@ export default function App() {
   );
 }
 
-
 function Demo() {
   return (
-    <MantineProvider theme={{ defaultRadius: 0 }}>
-      <Button>With 0px border-radius</Button>
-      <Button radius="xl">Default radius can be overridden with radius prop</Button>
+    <MantineProvider theme={{ activeStyles: { transform: 'scale(0.95)' } }}>
+      <Button>Press me</Button>
     </MantineProvider>
   );
 }
