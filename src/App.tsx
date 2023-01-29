@@ -1,4 +1,6 @@
-import { useElementSize } from "@mantine/hooks";
+import { Group, Button } from "@mantine/core";
+import { useEventListener } from "@mantine/hooks";
+import { useState, useCallback } from "react";
 
 export default function App() {
   return (
@@ -6,14 +8,14 @@ export default function App() {
   );
 }
 
-
 function Demo() {
-  const { ref, width, height } = useElementSize();
+  const [count, setCount] = useState(0);
+  const increment = useCallback(() => setCount((c) => c + 1), []);
+  const ref = useEventListener('click', increment);
 
   return (
-    <>
-      <textarea ref={ref} style={{ width: 400, height: 120 }} />
-      <div>Width: {width}px, height: {height}px</div>
-    </>
+    <Group position="center">
+      <Button ref={ref}>Button clicks: {count}</Button>
+    </Group>
   );
 }
